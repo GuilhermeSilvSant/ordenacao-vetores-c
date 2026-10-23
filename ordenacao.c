@@ -5,21 +5,21 @@
 
 //funções 
 void menu();
-void bubbleSort();
-void selectioSort();
+void bubbleSort(int *, int *, int);
+void selectionSort(int *, int *, int);
 
 
 //variaveis globais
 int cmp=0,trc=0;
 int tam=10;
 int resp[10] , opc=0 , cont=0,salvaVet;
-int vet[100], copVet[100];;
+int vet[100], copVet[100];
 int vet1[] = {42 , 17 , 89 , 3 , 65 , 24 , 91 , 58 , 12 , 76};
-int copVet1[] = {42 , 17 , 89 , 3 , 65 , 24 , 91 , 58 , 12 , 76};
 int vet2[] = {23 , 12 , 27 , -2 , 20 , 24 , 157 , 50 , 81 ,53};
-int copVet2[] = {23 , 12 , 27 , -2 , 20 , 24 , 157 , 50 , 81 ,53};
 
-main()
+
+
+int main()
 {
     menu();
 }
@@ -84,12 +84,34 @@ void menu()
                         }
                         printf("\n\nQual Vetor você escolhe(1 ou 2): ");
                         scanf("%d",&opc);
+                        if(opc == 1)
+                        {
+                            for(int i = 0; i < tam ; i++)
+                            {
+                                        
+                                copVet[i] = vet1[i];
+                            }
+                            salvaVet= 1;
+                            bubbleSort(vet1,copVet,tam);
+                            
+                            
+                        }
+                        else if(opc == 2)
+                        {
+                            for(int i = 0; i < tam ; i++)
+                            {
+                                        
+                                copVet[i] = vet2[i];
+                            }
+                            salvaVet=2;
+                            bubbleSort(vet2,copVet,tam);
+                            
+                        }
                         resp[cont] = opc;
                         //printf("%d",cont);
-                        salvaVet=opc;
                         cont++;
                         
-                        bubbleSort();
+                        
 
                         
                     }//fim do if
@@ -145,8 +167,8 @@ void menu()
                                 }
                                 
                                 
-                                
-                                bubbleSort();
+                                tam = sizeof(vet) / sizeof(int);
+                                bubbleSort(vet,copVet,tam);
                             }
                             else if(opc == 2)
                             {
@@ -195,12 +217,35 @@ void menu()
                         }
                         printf("\n\nQual Vetor você escolhe(1 ou 2): ");
                         scanf("%d",&opc);
+                        if(opc == 1)
+                        {
+                            for(int i = 0; i < tam ; i++)
+                            {
+                                        
+                                copVet[i] = vet1[i];
+                            }
+                            salvaVet= 1;
+                            selectionSort(vet1,copVet,tam);
+                            
+                            
+                        }
+                        else if(opc == 2)
+                        {
+                            for(int i = 0; i < tam ; i++)
+                            {
+                                        
+                                copVet[i] = vet2[i];
+                            }
+                            salvaVet=2;
+                            selectionSort(vet2,copVet,tam);
+                            
+                        }
                         resp[cont] = opc;
                         //printf("%d",cont);
                         salvaVet=opc;
                         cont++;
                         
-                        selectioSort();
+                        
 
                         
                     }//fim do if
@@ -253,8 +298,9 @@ void menu()
                                         copVet[t] = vet[t];
                                     }
                                 }
-                                
-                                selectioSort();
+
+                                tam = sizeof(vet) / sizeof(int);
+                                selectionSort(vet,copVet,tam);
                             }
                             else if(opc == 2)
                             {
@@ -295,6 +341,7 @@ void menu()
             case 7:
 
             break;
+            
         }
     }
     
@@ -310,7 +357,7 @@ void menu()
 
 }//fim do menu
 
-void bubbleSort()
+void bubbleSort(int *v, int *copVet , int tam)
 {
     int ini=0,fim=0,aux=0;
     fim =tam-1;
@@ -319,658 +366,225 @@ void bubbleSort()
 
     while(1)
     {
-    int ini=0,fim=0,aux=0;
-    fim =9;
+        int ini=0,fim=0,aux=0;
+        fim =9;
 
-    puts("\nO metodo Bubble vai ser ordenado de Qual Forma: ");
-    puts("1--Crescente");
-    puts("2--Decrescente");
-    puts("3--reset do vetor");
-    puts("4 <-- voltar");
-    scanf("%d",&opc);
-    resp[cont] = opc;
-    cont++;
-    
-    if(salvaVet == 1)
-    {
-        //Vetor 1 =============================
+        puts("\nO metodo Bubble vai ser ordenado de Qual Forma: ");
+        puts("1--Crescente");
+        puts("2--Decrescente");
+        puts("3--reset do vetor");
+        puts("4 <-- voltar");
+        scanf("%d",&opc);
         if(opc == 1)
         {
-                system("clear");
-                //crescente
-                puts("Você escolheu (Crescente)");
-                puts("=========================");
-                puts("Seu Vetor 1 Desordenado");
-                for(int i = 0 ; i < tam ; i++)
+            system("clear");
+            //crescente
+            puts("Você escolheu (Crescente)");
+            puts("=========================");
+            printf("\nSeu Vetor %d Desordenado\n",salvaVet);
+            for(int i = 0 ; i < tam ; i++)
+            {
+                printf("%d |",v[i]);  
+            }
+            puts("");
+            while(ini <= fim)
+            {
+                for(int i = 0; i < fim;i++)
                 {
-                    printf("%d |",vet1[i]);  
-                }
-                puts("");
-                while(ini <= fim)
-                {
-                    for(int i = 0; i < fim;i++)
+                    cmp++;
+                    if(v[i] > v[i+1])
                     {
-                        cmp++;
-                        if(vet1[i] > vet1[i+1])
-                        {
-                            aux = vet1[i];
-                            vet1[i] = vet1[i+1];
-                            vet1[i+1] = aux;
-                            trc++;
-                        }
+                        aux = v[i];
+                        v[i] = v[i+1];
+                        v[i+1] = aux;
+                        trc++;
                     }
-                    fim--;
-                } //fim do While 
-                puts("\nSeu Vetor 1 Ordenado");
-                for(int i = 0 ; i < tam ; i++)
-                {
-                    printf("%d |",vet1[i]);  
                 }
-                puts("");
-
-            }//fim do if de dentro
-            else if(opc == 2)
+                fim--;
+            } //fim do While 
+            printf("\nSeu Vetor %d Ordenado\n",salvaVet);
+            for(int i = 0 ; i < tam ; i++)
             {
-                system("clear");
-                //decrescente
-                puts("Você escolheu (Decrescente)");
-                puts("=========================");
-                puts("Seu Vetor 1 Desordenado");
-                for(int i = 0 ; i < tam ; i++)
-                {
-                    printf("%d |",vet1[i]);  
-                }
-                puts("");
-                while(ini <= fim)
-                {
-                    for(int i = 0; i < fim;i++)
-                    {
-                        cmp++;
-                        if(vet1[i] < vet1[i+1])
-                        {
-                            aux = vet1[i];
-                            vet1[i] = vet1[i+1];
-                            vet1[i+1] = aux;
-                            trc++;
-                        }
-                    }
-                    fim--;
-                } //fim do While 
-                puts("\nSeu Vetor 1 Ordenado");
-                for(int i = 0 ; i < tam ; i++)
-                {
-                    printf("%d |",vet1[i]);  
-                }
-                puts("");
-
-            }//fim do else 1 de dentro
-            else if(opc == 3)
-            {
-                system("clear");
-                //resetando vetor
-                puts("===================");
-                puts("Resetando o vetor");
-                sleep(3);
-                printf(".........");
-                puts("Reset Concluido!!!!!");
-                for(int i = 0 ; i < tam; i++)
-                {
-                    vet1[i] = copVet1[i];
-                }
-            }//fim do else 2 de dentro
-            if(opc == 4)
-            {
-                break;
-            }//fim do else 3 de dentro
-
-        }//fim do if 1 de fora
-        else if(salvaVet == 2)
+                printf("%d |",v[i]);  
+            }
+            puts("");
+        }
+        else if(opc == 2)
         {
-            //Vetor 2 ==============================
-            if(opc == 1)
+            system("clear");
+            //crescente
+            puts("Você escolheu (Decrescente)");
+            puts("=========================");
+            printf("\nSeu Vetor %d Desordenado\n",salvaVet);
+            for(int i = 0 ; i < tam ; i++)
             {
-                system("clear");
-                //crescente
-                puts("Você escolheu (Crescente)");
-                puts("=========================");
-                puts("Seu Vetor 1 Desordenado");
-                for(int i = 0 ; i < tam ; i++)
+                printf("%d |",v[i]);  
+            }
+            puts("");
+            while(ini <= fim)
+            {
+                for(int i = 0; i < fim;i++)
                 {
-                    printf("%d |",vet2[i]);  
-                }
-                puts("");
-                while(ini <= fim)
-                {
-                    for(int i = 0; i < fim;i++)
+                    cmp++;
+                    if(v[i] < v[i+1])
                     {
-                        cmp++;
-                        if(vet2[i] > vet2[i+1])
-                        {
-                            aux = vet2[i];
-                            vet2[i] = vet2[i+1];
-                            vet2[i+1] = aux;
-                            trc++;
-                        }
+                        aux = v[i];
+                        v[i] = v[i+1];
+                        v[i+1] = aux;
+                        trc++;
                     }
-                    fim--;
-                } //fim do While 
-                puts("\nSeu Vetor 1 Ordenado");
-                for(int i = 0 ; i < tam ; i++)
-                {
-                    printf("%d |",vet2[i]);  
                 }
-                puts("");
-
-            }//fim do if de dentro
-            else if(opc == 2)
+                fim--;
+            } //fim do While 
+            printf("\nSeu Vetor %d Ordenado\n",salvaVet);
+            for(int i = 0 ; i < tam ; i++)
             {
-                system("clear");
-                //decrescente
-                puts("Você escolheu (Decrescente)");
-                puts("=========================");
-                puts("Seu Vetor 1 Desordenado");
-                for(int i = 0 ; i < tam ; i++)
-                {
-                    printf("%d |",vet2[i]);  
-                }
-                puts("");
-                while(ini <= fim)
-                {
-                    for(int i = 0; i < fim;i++)
-                    {
-                        cmp++;
-                        if(vet2[i] < vet2[i+1])
-                        {
-                            aux = vet2[i];
-                            vet2[i] = vet2[i+1];
-                            vet2[i+1] = aux;
-                            trc++;
-                        }
-                    }
-                    fim--;
-                } //fim do While 
-                puts("\nSeu Vetor 1 Ordenado");
-                for(int i = 0 ; i < tam ; i++)
-                {
-                    printf("%d |",vet2[i]);  
-                }
-                puts("");
-
-            }//fim do else 1 de dentro
-            else if(opc == 3)
-            {
-                system("clear");
-                //resetando vetor
-                puts("===================");
-                puts("Resetando o vetor");
-                sleep(3);
-                printf(".........");
-                puts("Reset Concluido!!!!!");
-                for(int i = 0 ; i < tam; i++)
-                {
-                    vet2[i] = copVet2[i];
-                }
-            }//fim do else 2 de dentro
-            if(opc == 4)
-            {
-                break;
-            }//fim do else 3 de dentro
-        }//fim do else 1 de fora
-        else if(salvaVet == 3)
+                printf("%d |",v[i]);  
+            }
+            puts("");
+        }//fim do else 1 de dentro
+        else if(opc == 3)
         {
-            //Vetor Criado ===========================
-            
 
-            if(opc == 1)
+            system("clear");
+            //resetando vetor
+            puts("===================");
+            puts("Resetando o vetor");
+            sleep(3);
+            puts("Reset Concluido!!!!!");
+            for(int i = 0 ; i < tam; i++)
             {
-                system("clear");
-                //crescente
-                puts("Você escolheu (Crescente)");
-                puts("=========================");
-                puts("Seu Vetor 1 Desordenado");
-                for(int i = 0 ; i < tam ; i++)
-                {
-                    printf("%d |",vet[i]);  
-                }
-                puts("");
-                while(ini <= fim)
-                {
-                    for(int i = 0; i < fim;i++)
-                    {
-                        cmp++;
-                        if(vet[i] > vet[i+1])
-                        {
-                            aux = vet[i];
-                            vet[i] = vet[i+1];
-                            vet[i+1] = aux;
-                            trc++;
-                        }
-                    }
-                    fim--;
-                } //fim do While 
-                puts("\nSeu Vetor 1 Ordenado");
-                for(int i = 0 ; i < tam ; i++)
-                {
-                    printf("%d |",vet[i]);  
-                }
-                puts("");
-
-            }//fim do if de dentro
-            else if(opc == 2)
-            {
-                system("clear");
-                //decrescente
-                puts("Você escolheu (Decrescente)");
-                puts("=========================");
-                puts("Seu Vetor 1 Desordenado");
-                for(int i = 0 ; i < tam ; i++)
-                {
-                    printf("%d |",vet[i]);  
-                }
-                puts("");
-                while(ini <= fim)
-                {
-                    for(int i = 0; i < fim;i++)
-                    {
-                        cmp++;
-                        if(vet[i] < vet[i+1])
-                        {
-                            aux = vet[i];
-                            vet[i] = vet[i+1];
-                            vet[i+1] = aux;
-                            trc++;
-                        }
-                    }
-                    fim--;
-                } //fim do While 
-                puts("\nSeu Vetor 1 Ordenado");
-                for(int i = 0 ; i < tam ; i++)
-                {
-                    printf("%d |",vet[i]);  
-                }
-                puts("");
-
-            }//fim do else 1 de dentro
-            else if(opc == 3)
-            {
-                system("clear");
-                //resetando vetor
-                puts("===================");
-                puts("Resetando o vetor");
-                sleep(3);
-                puts(".........Reset Concluido!!!!!");
-                
-                for(int i = 0 ; i < tam; i++)
-                {
-                    vet[i] = copVet[i];
-                }
-            }//fim do else 2 de dentro
-            if(opc == 4)
-            {
-                break;
-            }//fim do else 3 de dentro
+                v[i] = copVet[i];
+            }
+        }//fim do else 2 de dentro
+        if(opc == 4)
+        {
+            break;
+        }//fim do else 3 de dentro
         
-     }//fim do else 2 de fora    
-        
-        
-    }//fim do while
-   
+    
+    }
 }//fim do bubble
 
-void selectioSort()
+void selectionSort(int *v, int *copVet , int tam)
 {
     while(1)
     {
+        int i=0, j=0;
+        int chave=0, menor=0, maior=0, aux=0;
 
-    int i=0,j=0;
-	int chave=0,menor=0,aux=0;
+        puts("\nO metodo Selection vai ser ordenado de Qual Forma: ");
+        puts("1--Crescente");
+        puts("2--Decrescente");
+        puts("3--reset do vetor");
+        puts("4 <-- voltar");
+        printf("R: ");
+        scanf("%d",&opc);
+        resp[cont] = opc;
+        cont++;
 
-	puts("\nO metodo Selection vai ser ordenado de Qual Forma: ");
-    puts("1--Crescente");
-    puts("2--Decrescente");
-    puts("3--reset do vetor");
-    puts("4 <-- voltar");
-    printf("R: ");
-    scanf("%d",&opc);
-    resp[cont] = opc;
-    cont++;
-
-    if(salvaVet == 1)
-    {
         if(opc == 1)
         {
             system("clear");
             //crescente
             puts("Você escolheu (Crescente)");
             puts("=========================");
-            puts("Seu Vetor 1 Desordenado");
+            puts("Seu Vetor Desordenado");
             for(int i = 0 ; i < tam ; i++)
             {
-                printf("%d |",vet1[i]);  
+                printf("%d |",v[i]);  
             }
             puts("");
-            for(i=0;i<tam-1;i++)
+
+            for(i = 0; i < tam - 1; i++)
             {
-                //assumme que o menor elemento esta na primeira posicao
-                chave=i;
-                menor=i+1;
+                menor = i; 
                 
-                for(j=menor;j<tam;j++)
+                for(j = i + 1; j < tam; j++)
                 {
                     cmp++;
-                    if(vet1[j] < vet1[menor])
+                    if(v[j] < v[menor]) 
                     {
-                        menor=j;//guarda o indice do menor elemento do subconjunto 
-                        
+                        menor = j; 
                     }
-                    
                 }
-                cmp++;
-                if(vet1[menor] < vet1[chave])
+                
+                if(menor != i)
                 {
-                    aux = vet1[chave];
-                    vet1[chave] = vet1[menor];
-                    vet1[menor] = aux;
+                    aux = v[i];
+                    v[i] = v[menor];
+                    v[menor] = aux;
                     trc++;
                 }
-                    
             }
-            puts("\nSeu Vetor 1 Ordenado");
+                    
+            puts("\nSeu Vetor Ordenado");
             for(int i = 0 ; i < tam ; i++)
             {
-                printf("%d |",vet1[i]);  
+                printf("%d |",v[i]);  
             }
+            puts("");
 
-        }//fim do if de dentro
+        }
         else if(opc == 2)
         {
             system("clear");
             //decrescente
             puts("Você escolheu (Decrescente)");
             puts("=========================");
-            puts("Seu Vetor 1 Desordenado");
+            puts("Seu Vetor Desordenado");
             for(int i = 0 ; i < tam ; i++)
             {
-                printf("%d |",vet1[i]);  
+                printf("%d |",v[i]);  
             }
             puts("");
-            for(i=0;i<tam-1;i++)
+
+            for(i = 0; i < tam - 1; i++)
             {
-                //assumme que o menor elemento esta na primeira posicao
-                chave=i;
-                menor=i+1;
+                maior = i; 
                 
-                for(j=menor;j<tam;j++)
+                for(j = i + 1; j < tam; j++)
                 {
                     cmp++;
-                    if(vet1[j] > vet1[menor])
+                    if(v[j] > v[maior]) 
                     {
-                        menor=j;//guarda o indice do menor elemento do subconjunto 
-                        
+                        maior = j;
                     }
-                    
                 }
-                cmp++;
-                if(vet1[menor] > vet1[chave])
+                
+                if(maior != i)
                 {
-                    aux = vet1[chave];
-                    vet1[chave] = vet1[menor];
-                    vet1[menor] = aux;
+                    aux = v[i];
+                    v[i] = v[maior];
+                    v[maior] = aux;
                     trc++;
-                }     
+                }
             }
-            puts("\nSeu Vetor 1 Ordenado");
+
+            puts("\nSeu Vetor Ordenado");
             for(int i = 0 ; i < tam ; i++)
             {
-                printf("%d |",vet1[i]);  
+                printf("%d |",v[i]);  
             }
-        }//fim do else 1 de dentro
+            puts("");
+        }
         else if(opc == 3)
         {
-
-                system("clear");
-                //resetando vetor
-                puts("===================");
-                puts("Resetando o vetor");
-                sleep(3);
-                printf(".........");
-                puts("Reset Concluido!!!!!");
-                for(int i = 0 ; i < tam; i++)
-                {
-                    vet1[i] = copVet1[i];
-                }
-        }//fim do else 2 de dentro
-        if(opc == 4)
+            system("clear");
+            //resetando vetor
+            puts("===================");
+            puts("Resetando o vetor");
+            sleep(3);
+            puts("Reset Concluido!!!!!");
+            for(int i = 0 ; i < tam; i++)
+            {
+                v[i] = copVet[i];
+            }
+        }
+        else if(opc == 4)
         {
             break;
-        }//fim do else 3 de dentro
+        }
+    }
+}//fim do Selection
 
-    }//fim do if de fora
-    else if(salvaVet == 2)
-    {
-        if(opc == 1)
-        {
-            system("clear");
-            //crescente
-            puts("Você escolheu (Crescente)");
-            puts("=========================");
-            puts("Seu Vetor 1 Desordenado");
-            for(int i = 0 ; i < tam ; i++)
-            {
-                printf("%d |",vet2[i]);  
-            }
-            puts("");
-            for(i=0;i<tam-1;i++)
-            {
-                //assumme que o menor elemento esta na primeira posicao
-                chave=i;
-                menor=i+1;
-                
-                for(j=menor;j<tam;j++)
-                {
-                    cmp++;
-                    if(vet2[j] < vet2[menor])
-                    {
-                        menor=j;//guarda o indice do menor elemento do subconjunto 
-                        
-                    }
-                    
-                }
-                cmp++;
-                if(vet2[menor] < vet2[chave])
-                {
-                    aux = vet2[chave];
-                    vet2[chave] = vet2[menor];
-                    vet2[menor] = aux;
-                    trc++;
-                }
-                    
-            }
-            puts("\nSeu Vetor 1 Ordenado");
-            for(int i = 0 ; i < tam ; i++)
-            {
-                printf("%d |",vet2[i]);  
-            }
-                puts("");
-
-        }//fim do if de dentro
-        else if(opc == 2)
-        {
-            system("clear");
-            //decrescente
-            puts("Você escolheu (Decrescente)");
-            puts("=========================");
-            puts("Seu Vetor 1 Desordenado");
-            for(int i = 0 ; i < tam ; i++)
-            {
-                printf("%d |",vet2[i]);  
-            }
-            puts("");
-            for(i=0;i<tam-1;i++)
-            {
-                //assumme que o menor elemento esta na primeira posicao
-                chave=i;
-                menor=i+1;
-                
-                for(j=menor;j<tam;j++)
-                {
-                    cmp++;
-                    if(vet2[j] > vet2[menor])
-                    {
-                        menor=j;//guarda o indice do menor elemento do subconjunto 
-                        
-                    }
-                    
-                }
-                cmp++;
-                if(vet2[menor] > vet2[chave])
-                {
-                    aux = vet2[chave];
-                    vet2[chave] = vet2[menor];
-                    vet2[menor] = aux;
-                    trc++;
-                }     
-            }
-            puts("\nSeu Vetor 1 Ordenado");
-            for(int i = 0 ; i < tam ; i++)
-            {
-                printf("%d |",vet2[i]);  
-            }
-        }//fim do else 1 de dentro
-        else if(opc == 3)
-        {
-
-                system("clear");
-                //resetando vetor
-                puts("===================");
-                puts("Resetando o vetor");
-                sleep(3);
-                printf(".........");
-                puts("Reset Concluido!!!!!");
-                for(int i = 0 ; i < tam; i++)
-                {
-                    vet2[i] = copVet2[i];
-                }
-        }//fim do else 2 de dentro
-        if(opc == 4)
-        {
-            break;
-        }//fim do else 3 de dentro
-
-    }//fim do else 1 de fora
-    else if(salvaVet == 3)
-    {
-        if(opc == 1)
-        {
-            system("clear");
-            //crescente
-            puts("Você escolheu (Crescente)");
-            puts("=========================");
-            puts("Seu Vetor 1 Desordenado");
-            for(int i = 0 ; i < tam ; i++)
-            {
-                printf("%d |",vet[i]);  
-            }
-            puts("");
-            for(i=0;i<tam-1;i++)
-            {
-                //assumme que o menor elemento esta na primeira posicao
-                chave=i;
-                menor=i+1;
-                
-                for(j=menor;j<tam;j++)
-                {
-                    cmp++;
-                    if(vet[j] < vet[menor])
-                    {
-                        menor=j;//guarda o indice do menor elemento do subconjunto 
-                        
-                    }
-                    
-                }
-                cmp++;
-                if(vet[menor] < vet[chave])
-                {
-                    aux = vet[chave];
-                    vet[chave] = vet[menor];
-                    vet[menor] = aux;
-                    trc++;
-                }
-                    
-            }
-            puts("\nSeu Vetor 1 Ordenado");
-            for(int i = 0 ; i < tam ; i++)
-            {
-                printf("%d |",vet[i]);  
-            }
-
-        }//fim do if de dentro
-        else if(opc == 2)
-        {
-            system("clear");
-            //decrescente
-            puts("Você escolheu (Decrescente)");
-            puts("=========================");
-            puts("Seu Vetor 1 Desordenado");
-            for(int i = 0 ; i < tam ; i++)
-            {
-                printf("%d |",vet[i]);  
-            }
-            puts("");
-            for(i=0;i<tam-1;i++)
-            {
-                //assumme que o menor elemento esta na primeira posicao
-                chave=i;
-                menor=i+1;
-                
-                for(j=menor;j<tam;j++)
-                {
-                    cmp++;
-                    if(vet[j] > vet[menor])
-                    {
-                        menor=j;//guarda o indice do menor elemento do subconjunto 
-                        
-                    }
-                    
-                }
-                cmp++;
-                if(vet[menor] > vet[chave])
-                {
-                    aux = vet[chave];
-                    vet[chave] = vet[menor];
-                    vet[menor] = aux;
-                    trc++;
-                }     
-            }
-            puts("\nSeu Vetor 1 Ordenado");
-            for(int i = 0 ; i < tam ; i++)
-            {
-                printf("%d |",vet[i]);  
-            }
-        }//fim do else 1 de dentro
-        else if(opc == 3)
-        {
-
-                system("clear");
-                //resetando vetor
-                puts("===================");
-                puts("Resetando o vetor");
-                sleep(3);
-                printf(".........");
-                puts("Reset Concluido!!!!!");
-                for(int i = 0 ; i < tam; i++)
-                {
-                    vet[i] = copVet[i];
-                }
-        }//fim do else 2 de dentro
-        if(opc == 4)
-        {
-            break;
-        }//fim do else 3 de dentro
-
-    }//fim do else 2 de fora
-        
-
-    }//fim do while
-	
-}//fim do Selecion
